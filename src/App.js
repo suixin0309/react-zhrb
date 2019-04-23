@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route}from 'react-router-dom'
 
+import pageList from './PageComponent'
+import list from  './ListComponent'
+import Home from './Home'
+import Collection from './Collection'
+import User from './User'
+
+import './App.css';
+import articleDetails from "./articleDetails";
+var path= [
+  {
+    path: '/pageList',
+    component: pageList,
+    name: 'pa'
+  },
+  {
+    path: '/list',
+    component: list,
+    name: 'li'
+  },{
+    path: '/',
+    component: Home,
+    name: 'Home'
+  },
+  {
+    path:'/Collection',
+    component:Collection,
+    name:'Collection'
+  },
+  {
+    path:'/User',
+    component:User,
+    name:'User'
+  },
+  {
+    path:'/articleDetails',
+    component:articleDetails,
+    name:'articleDetails'
+  }
+]
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+    return (<BrowserRouter>
+          <div>
+            {
+              path.map((page, index) => page.component ?
+                  <Route key={index} exact path={page.path} component={page.component}/> : "")
+            }
+          </div>
+        </BrowserRouter>
+
     );
   }
 }
-
-export default App;
+export default App
